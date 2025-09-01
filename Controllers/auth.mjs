@@ -1,5 +1,4 @@
 import express from "express";
-import User from "../Models/userModel.mjs";
 import bcrypt from "bcrypt";
 import jwt, { decode } from "jsonwebtoken";
 import USER from "../Models/userModel.mjs";
@@ -21,12 +20,12 @@ const generateRefreshToken = (payload) => {
 const handleSignUp = async (req, res) => {
 	const { name, email, password } = req.body;
 	try {
-		const existingUser = await User.findOne({ email });
+		const existingUser = await USER.findOne({ email });
 		if (existingUser) {
 			return res.status(400).json({ msg: "User already exists." });
 		}
 		const hashedPassword = await bcrypt.hash(password, 10);
-		const newUser = new User({ name, email, password: hashedPassword });
+		const newUser = new USER({ name, email, password: hashedPassword });
 		await newUser.save();
 		return res.status(201).json({ msg: "Registered successfully." });
 	} catch (err) {
@@ -38,7 +37,7 @@ const handleSignUp = async (req, res) => {
 const handleLogin = async (req, res) => {
 	const { email, password } = req.body;
 	try {
-		const existingUser = await User.findOne({ email });
+		const existingUser = await USER.findOne({ email });
 		if (!existingUser) {
 			return res.status(404).json({ msg: "User not found." });
 		}
@@ -93,7 +92,7 @@ const isAuthenticated = async (req, res, next) => {
 		try {
 			const decoded = jwt.verify(accessToken, process.env.SECRET_ACCESS_KEY);
 			req.user = decoded;
-			const doc = await URL.findOne({ email: req.user.email });
+			const doc = await USER.findOne({ email: req.user.email });
 			req.user.name = doc.name;
 			return next();
 		} catch (err) {
