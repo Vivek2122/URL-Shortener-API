@@ -27,7 +27,7 @@ router.post("/shorten/auth", isAuthenticated, async (req, res) => {
 	try {
 		// Generate QR code
 		const qrCode = await QRCode.toDataURL(
-			`http://localhost:3000/url/${shortUrl}`
+			`https://url-shortener-api-six.vercel.app/url/${shortUrl}`
 		);
 
 		const newUrl = await URL.create({
@@ -61,7 +61,7 @@ router.post("/shorten", async (req, res) => {
 	const alreadyExist = await URL.findOne({ originalUrl });
 	if (alreadyExist) {
 		const qrCode = await QRCode.toDataURL(
-			`http://localhost:3000/url/${alreadyExist.shortUrl}`
+			`https://url-shortener-api-six.vercel.app/url/${alreadyExist.shortUrl}`
 		);
 		return res.json({
 			msg: "URL already shortened",
@@ -73,7 +73,7 @@ router.post("/shorten", async (req, res) => {
 	try {
 		// Generate QR code
 		const qrCode = await QRCode.toDataURL(
-			`http://localhost:3000/url/${shortUrl}`
+			`https://url-shortener-api-six.vercel.app/url/${shortUrl}`
 		);
 
 		const newUrl = await URL.create({
@@ -111,7 +111,7 @@ router.get("/dashboard", isAuthenticated, async (req, res) => {
 			urls: urls.map((u) => ({
 				_id: u._id,
 				originalUrl: u.originalUrl,
-				shortUrl: `http://localhost:3000/url/${u.shortUrl}`,
+				shortUrl: `https://url-shortener-api-six.vercel.app/url/${u.shortUrl}`,
 				clicks: u.visits, // map to "clicks" for frontend consistency
 				qrCode: u.qrCode,
 			})),
