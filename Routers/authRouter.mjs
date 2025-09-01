@@ -34,7 +34,7 @@ router.get(
 	"/auth/google/callback",
 	passport.authenticate("google", {
 		session: false,
-		failureRedirect: "https://url-shotener-frontend.vercel.app/login",
+		failureRedirect: "https://url-shotener-frontend.onrender.com/login",
 	}),
 	(req, res) => {
 		const { accessToken, refreshToken } = req.user;
@@ -50,7 +50,7 @@ router.get(
 			secure: true,
 			maxAge: 7 * 24 * 60 * 60 * 1000,
 		});
-		res.redirect("https://url-shotener-frontend.vercel.app/dashboard");
+		res.redirect("https://url-shotener-frontend.onrender.com/dashboard");
 	}
 );
 

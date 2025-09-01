@@ -15,7 +15,7 @@ passport.use(
 			clientID: process.env.GOOGLE_CLIENT_ID,
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 			callbackURL:
-				"https://url-shortener-api-six.vercel.app/api/auth/google/callback",
+				"https://url-shortener-api-rj6k.onrender.com/api/auth/google/callback",
 		},
 		async (accessToken, refreshToken, profile, done) => {
 			try {

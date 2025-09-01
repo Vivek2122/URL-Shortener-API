@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(
 	cors({
-		origin: "https://url-shotener-frontend.vercel.app",
+		origin: "https://url-shotener-frontend.onrender.com",
 		credentials: true,
 	})
 );
